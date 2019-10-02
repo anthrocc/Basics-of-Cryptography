@@ -153,7 +153,7 @@ public class CryptoTools
 	public static double getIC(byte[] ar)
 	{
 		// Calculating the IC with a Monte Carlo approach
-		int trials = 10000;
+		int trials = 1000;
 		int count = 0;
 		double ic = 0;
 		for (int i = 1; i <= trials; i++)
