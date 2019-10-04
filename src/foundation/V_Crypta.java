@@ -16,6 +16,7 @@ public class V_Crypta {
         double keySize2;
         double keySize3;
         double keySize4;
+        double keySizeF;
         double keySize;
 
         byte ct[] = CryptoTools.fileToBytes("data/MSG4.ct");
@@ -24,22 +25,23 @@ public class V_Crypta {
         totalIC = CryptoTools.getIC(ct);
 
 
-        //keySize = ((expecIC - 1/alphabetSize) * textLength) / ((textLength - 1) * totalIC - textLength * 1/alphabetSize + expecIC);
+        keySize = ((expecIC - 1/alphabetSize) * textLength) / ((textLength - 1) * totalIC - textLength * 1/alphabetSize + expecIC);
 
         keySize1 = (expecIC - 1/alphabetSize) * textLength;  // GOOD
         keySize2 = (textLength - 1) * totalIC;
         keySize3 = (textLength * 1/alphabetSize) + expecIC; // GOOD
         keySize4 = keySize2 - keySize3;
-        keySize = keySize1 / keySize4;
+        keySizeF = keySize1 / keySize4;
 
 
 
         //keySize = ((expecIC - 1/alphabetSize) * 1000) / ((1000 - 1) * 0.045 - 1000 * 1/alphabetSize + expecIC);
 
-        System.out.println("KeySize1 " + keySize1);
-        System.out.println("KeySize2 " + keySize2);
-        System.out.println("KeySize3 " + keySize3);
-        System.out.println("KeySize4 " + keySize4);
+        //System.out.println("KeySize1 " + keySize1);
+        //System.out.println("KeySize2 " + keySize2);
+        //System.out.println("KeySize3 " + keySize3);
+        //System.out.println("KeySize4 " + keySize4);
+        System.out.println("KeySizeF " + keySizeF);
         System.out.println("KeySize " + keySize);
 
 
