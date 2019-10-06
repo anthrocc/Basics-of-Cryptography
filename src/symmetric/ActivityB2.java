@@ -16,7 +16,6 @@ public class ActivityB2 {
         byte[] iv = CryptoTools.hexToBytes("20FC19123087BF6CAC8D0F1254123004");
         byte[] ct = CryptoTools.hexToBytes("3188073EA5DB3F5C05B6307B3595607135F5D4B22F2C3EB710AA31377F78B997");
 
-
         // New Key and instance of a cipher
         Key secret = new SecretKeySpec(key, "AES");
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
