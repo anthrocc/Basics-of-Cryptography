@@ -170,5 +170,19 @@ public class CryptoTools
 		return ic;
 	}
 
+	// Computes the xor of two byte arrays
+	public static byte[] xor(byte[] x, byte[] y) throws Exception
+	{
+		if (x.length != y.length) throw new Exception("Lengths Mismatch!");
+
+		byte[] result = new byte[x.length];
+
+		for (int i = 0; i < x.length; i++)
+		{
+			result[i] = (byte) (x[i] ^ y[i]);
+		}
+		return result;
+	}
+
 }
 
