@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.security.MessageDigest;
+import java.util.Random;
 
 /**
  * Utility methods useful for cryptanalysis
@@ -170,19 +171,71 @@ public class CryptoTools
 		return ic;
 	}
 
-	// Computes the xor of two byte arrays
-	public static byte[] xor(byte[] x, byte[] y) throws Exception
+//	public static double getIC(byte[] ar)
+//	{
+//
+//		Random rng = new Random();
+//		byte[] pt = CryptoTools.clean(ar);
+//		int draws = ar.length;
+//		int success = 0;
+//		for (int i = 0; i < draws; i++)
+//		{
+//			int pos1 = rng.nextInt(pt.length);
+//			int pos2 = rng.nextInt(pt.length);
+//			if (pos1!=pos2 && pt[pos1] == pt[pos2]) success++;
+//		}
+//		return	(success / (double) draws);
+//	}
+
+	public static double getIC2(byte[] ar)
 	{
-		if (x.length != y.length) throw new Exception("Lengths Mismatch!");
-
-		byte[] result = new byte[x.length];
-
-		for (int i = 0; i < x.length; i++)
+		int[] frq = CryptoTools.getFrequencies(ar);
+		int sum = 0;
+		for (int i = 0; i < frq.length; i++)
 		{
+			sum += frq[i]*(frq[i]-1);
+		}
+		double denominator = ar.length * (ar.length - 1);
+		return (sum / denominator);
+	}
+
+	// Return the max value
+	public static char[] getMax(byte[] ar) {
+		int[] freq = getFrequencies(ar);
+		int max = 0;
+		char letter[] = {'A','A'};
+		for(int i = 0; i < freq.length; i++) {
+			if(freq[i] > max) {
+				max=freq[i];
+				letter[1]=letter[0];
+				letter[0]=(char) (65+i);
+			}
+		}
+		return letter;
+	}
+
+	// Compute and return the dot product
+	public static double dotProduct(byte [] a) {
+		double sum = 0;
+		int[] freq= getFrequencies(a);
+		double[] vector = new double[freq.length];
+		for (int i=0; i<freq.length; ++i) {
+			vector[i]= ((double)freq[i]/a.length)*100;
+		}
+		for(int i = 0; i < vector.length; i++) {
+			sum += vector[i] * ENGLISH[i];
+		}
+		return sum;
+	}
+
+	// Computes the xor of two byte arrays
+	public static byte[] xor(byte[] x, byte[] y) throws Exception {
+		if (x.length != y.length) throw new Exception("Lengths Mismatch!");
+		byte[] result = new byte[x.length];
+		for (int i = 0; i < x.length; i++) {
 			result[i] = (byte) (x[i] ^ y[i]);
 		}
 		return result;
 	}
-
 }
 
