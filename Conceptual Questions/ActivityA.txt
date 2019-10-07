@@ -1,0 +1,55 @@
+1)  In the context of the CIA triad, the word integrity refers to several different and independent security goals. List
+    them and, for each, give examples of an attack on it, and measures you can take to mitigate it.
+
+    1) Integrity of Sender and Sending
+        - Spoofing: Sending a message from "Bob"
+        - Spoofing attacks can be prevented by packet filtering: Packet filters inspect packets as they are transmitted
+        across a network. Packet filters are useful in IP address spoofing attack prevention because they are capable of
+        filtering out and blocking packets with conflicting source address information.
+    2) Integrity of Time of sending
+        - Repudiate: Deny receiving a message
+        - Using a hash or MD5 to ensure the integrity of the message
+    3) Integrity of Content
+        - Fabrication Attack: An attack in which the message is fabricated
+        - Use a hash or MD5 to ensure the integrity of the message
+    4) Integrity of Receiving
+        - Replay: Data is repeatedly repeated or delayed
+        - Replay attacks can be prevented by tagging each encrypted component with a session ID and a component number
+
+
+
+2)  Can a symmetric cipher be used for authentication? For example, can it be used as an IFF (Identification, Friend or
+    Foe) system to distiguish friendly aircrafts from enemy ones
+
+    No, because since there is only 1 shared key, nothing can prevent an attacker from generating a random message which
+    the receiver will decrypt and accept.
+
+
+
+3)  Digtal photographs are so easy to alter that one wonders how courts can accept them as evidence. How would you use
+    the primitives to create a "tamper-proof seal" on digital evidence as it is collected.
+
+    Two ways:
+        1) Use symmetric or asymmetric encryption to ensure that the bits of the image do not get modified
+        2) Use a cryptographic hash function such as an MD5 to ensure that the image is the same as it was when it was
+        first collected.
+
+
+
+4)  Estimate the time needed to crack an 8-character password exhaustively on a single-core machine given that its
+    alphabet (i.e. the set to which its chars belong) is the union of the English upper/lower case letters, the digits,
+    and 32 symbols.
+
+    |{Characters}| ^ Digits = # of possible keys
+    94^8 = 6,095,689,385,410,816 microseconds
+    ~193.2930424090187671 years
+
+
+
+5)  Alice has a plaintext made up of the letter 'A' repeated many times. She sends it to Bob encrypted using some key.
+    Eve intercepts. For each of the three ciphers Shift, Affine, and Hill, determine if Eve can tell that the plaintext
+    is a repeated letter, and if so, whether she can know that letter.
+
+    Caesar - Yes she can tell there is a repeated letter and she can figure it out by trying the most common letters
+    Affine - No
+    Hill - No

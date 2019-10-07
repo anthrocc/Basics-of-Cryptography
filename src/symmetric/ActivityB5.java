@@ -13,8 +13,9 @@ import java.security.Key;
 
 public class ActivityB5 {
     public static void main(String[]args) throws Exception {
-        String rawCT = readFile("data/MSGActivityB5.ct", StandardCharsets.US_ASCII);
-        byte[] key = "FACEBOOK".getBytes();
+        String rawCT = readFile("data/ACTIVITY2.ct", StandardCharsets.US_ASCII);
+        //byte[] key = "FACEBOOK".getBytes();
+        byte[] key = CryptoTools.hexToBytes("7265736561726368");
         byte[] compKey = complementByte(key);
         byte[] ct = CryptoTools.hexToBytes(rawCT);
 
