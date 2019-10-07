@@ -26,7 +26,7 @@ public class DES_NoPadding_ECB
 		byte[] bk = cipher.doFinal(ct);
 		System.out.println("BK = " + new String(bk) + "<");
 		
-
+// 
 	}
 
 }
