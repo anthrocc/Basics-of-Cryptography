@@ -1,0 +1,13 @@
+------Question------
+Alice sends messages to Bob using AES/CBC/PKCS5Padding with an
+IV that is incremented by 1 after each message. If Eve knows that the
+first block of the plaintext of any message is either "True" or "False",
+can she mount an attack that decrypts the first block of a given message?
+Write your answer (Yes or No) and justify it. Hint: CPA.
+
+------Answer------
+True
+What you get back is Xord with the original Iv and the next
+string . So you get the cipher text and xor it with the IV's and
+whatever it xors, then if you have the key you can just make sure the
+CT's are the same
