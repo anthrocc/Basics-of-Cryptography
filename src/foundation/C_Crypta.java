@@ -4,7 +4,7 @@ import util.CryptoTools;
 
 public class C_Crypta {
     public static void main(String[]args) throws Exception {
-        byte ct[] = CryptoTools.fileToBytes("data/MSG2.ct");
+        byte ct[] = CryptoTools.fileToBytes("data/ActivityA/MSG2.ct");
         int freq[] = new int[26];
         int tempI;
         String tempS;

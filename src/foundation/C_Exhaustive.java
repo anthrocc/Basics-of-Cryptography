@@ -4,7 +4,7 @@ import util.CryptoTools;
 
 public class C_Exhaustive {
     public static void main(String[]args) throws Exception {
-        byte ct[] = CryptoTools.fileToBytes("data/MSG2.ct");
+        byte ct[] = CryptoTools.fileToBytes("data/ActivityA/MSG2.ct");
         byte pt[] = new byte[ct.length];
         byte tmpAr[] = new byte[ct.length];
         int freq[];
@@ -43,6 +43,6 @@ public class C_Exhaustive {
             pt[i] = (byte) (tmp + 'A');
         }
 
-        CryptoTools.bytesToFile(pt, "data/MSG2.pt");
+        CryptoTools.bytesToFile(pt, "data/ActivityA/MSG2.pt");
     }
 }

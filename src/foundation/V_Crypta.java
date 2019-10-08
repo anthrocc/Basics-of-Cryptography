@@ -3,47 +3,84 @@ package foundation;
 import util.CryptoTools;
 
 public class V_Crypta {
-    public static void main(String[]args) throws Exception {
 
-        // Key should be "ELABORATE"
-        // Size 9
+    public static void main(String[] args) throws Exception {
 
-        double expecIC = 0.067; // Index of coincidence for English
-        double totalIC = 0;
-        double alphabetSize = 26;
-        double textLength;
-        double keySize1;
-        double keySize2;
-        double keySize3;
-        double keySize4;
-        double keySizeF;
-        double keySize;
+        byte[] ct = CryptoTools.fileToBytes("data/ActivityA/MSG4.ct");
+        byte[] pt = new byte[ct.length];
 
-        byte ct[] = CryptoTools.fileToBytes("data/MSG4.ct");
+        //int[] frq = CryptoTools.getFrequencies(ct);
+        int curMatch = 0, maxMatch = 0, curShift = 1, maxShift = 1;
+//        for (; curShift <= 20; curShift++) {
+//            for (int i = 0; i < ct.length - curShift; i++) {
+//                if (ct[i] == ct[i + curShift]) {
+//                    curMatch++;
+//                }
+//            }
+//            if (curMatch > maxMatch) {
+//                maxMatch = curMatch;
+//                maxShift = curShift;
+//            }
+//
+//            curMatch = 0;
+//        }
 
-        textLength = ct.length;
-        totalIC = CryptoTools.getIC(ct);
+        while (curShift <= 20) {
+            for (int i = 0; i < ct.length - curShift; i++) {
+                if (ct[i] == ct[i + curShift]) {
+                    curMatch++;
+                }
+            }
+            if (curMatch > maxMatch) {
+                maxMatch = curMatch;
+                maxShift = curShift;
+            }
 
+            curMatch = 0;
+            curShift++;
+        }
 
-        keySize = ((expecIC - 1/alphabetSize) * textLength) / ((textLength - 1) * totalIC - textLength * 1/alphabetSize + expecIC);
+        System.out.println("Key Size = " + maxShift);
+        char[] key = new char[maxShift];
 
-        keySize1 = (expecIC - 1/alphabetSize) * textLength;  // GOOD
-        keySize2 = (textLength - 1) * totalIC;
-        keySize3 = (textLength * 1/alphabetSize) + expecIC; // GOOD
-        keySize4 = keySize2 - keySize3;
-        keySizeF = keySize1 / keySize4;
+        for (int j = 0; j < maxShift; j++) {
+            int[] freq = new int[26];
 
+            for (int k = j; k < ct.length; k += maxShift) {
 
+                freq[ct[k] - 'A']++;
+            }
 
-        //keySize = ((expecIC - 1/alphabetSize) * 1000) / ((1000 - 1) * 0.045 - 1000 * 1/alphabetSize + expecIC);
+            int lar = 0;
+            int lari = 0;
+            for (int i = 0; i < freq.length; i++) {
 
-        //System.out.println("KeySize1 " + keySize1);
-        //System.out.println("KeySize2 " + keySize2);
-        //System.out.println("KeySize3 " + keySize3);
-        //System.out.println("KeySize4 " + keySize4);
-        System.out.println("KeySizeF " + keySizeF);
-        System.out.println("KeySize " + keySize);
+                if (freq[i] > lar) {
+                    lar = freq[i];
+                    lari = i;
+                }
+            }
+            int shift = ('A' + lari) -'E';
 
+            if(shift < 0){
+                shift += 26;
+            }
+            shift += 'A';
 
+            key[j] = (char)shift;
+        }
+        System.out.println("The key is most likely: " + new String(key));
+
+        for(int m = 0 ; m < ct.length; m ++){
+            pt[m] = (byte)((ct[m] - 'A' - (key[m%maxShift] -'A')) % 26);
+            if(pt[m] < 0){
+                pt[m] += 26;
+            }
+            pt[m] += 'A';
+        }
+
+        CryptoTools.bytesToFile(pt, "data/ActivityA/MSG4.pt");
+        System.out.println("CipherText decoded and saved under data/MSG4.pt");
     }
+
 }

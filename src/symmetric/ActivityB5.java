@@ -13,7 +13,7 @@ import java.security.Key;
 
 public class ActivityB5 {
     public static void main(String[]args) throws Exception {
-        String rawCT = readFile("data/ACTIVITY2.ct", StandardCharsets.US_ASCII);
+        String rawCT = readFile("data/ActivityB/ActivityCheckB.ct", StandardCharsets.US_ASCII);
         //byte[] key = "FACEBOOK".getBytes();
         byte[] key = CryptoTools.hexToBytes("7265736561726368");
         byte[] compKey = complementByte(key);
@@ -28,7 +28,8 @@ public class ActivityB5 {
         cipher.init(Cipher.DECRYPT_MODE, secret);
         byte[] ct2 = cipher.doFinal(ct1);
 
-        System.out.println(new String(ct2));
+        //System.out.println(new String(ct2));
+        CryptoTools.bytesToFile(ct2, "data/ActivityB/ActivityCheckB.pt");
     }
 
     // Method to get the complement of a byte

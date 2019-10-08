@@ -151,6 +151,7 @@ public class CryptoTools
 //		return ic;
 //	}
 
+//  One from class (Monte Carlo)
 	public static double getIC(byte[] ar)
 	{
 		// Calculating the IC with a Monte Carlo approach
@@ -171,6 +172,7 @@ public class CryptoTools
 		return ic;
 	}
 
+//  One from GitHub
 //	public static double getIC(byte[] ar)
 //	{
 //

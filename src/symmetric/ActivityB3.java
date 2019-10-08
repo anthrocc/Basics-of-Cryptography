@@ -15,7 +15,7 @@ public class ActivityB3
         byte[] key = "CSE@YORK".getBytes();
         byte[] iv = CryptoTools.hexToBytes("0123456701234567");
         byte[] ct1 = CryptoTools.hexToBytes("4E51297B424F90D8");
-        byte[] ct2 = CryptoTools.hexToBytes("B2ACD6ADF010DDC4");  // Idk how he got this
+        byte[] ct2 = CryptoTools.hexToBytes("B2ACD6ADF010DDC4");
 
         Key secret = new SecretKeySpec(key, "DES");
         Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");

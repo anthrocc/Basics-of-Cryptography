@@ -8,7 +8,7 @@ public class A_Exhaustive {
         int a = 0, b = 0, keyA = 0, keyB = 0, multA = 0, temp;
         double max = 0.0, dotProduct = 0.0;
         BigInteger tempA, alphabetSize;
-        byte[] ct = CryptoTools.fileToBytes("data/ACTIVITY1.ct");
+        byte[] ct = CryptoTools.fileToBytes("data/ActivityA/ActivityCheck.ct");
         byte[] pt = new byte[ct.length];
         byte[] test = new byte[ct.length];
         int[] freq;
@@ -61,6 +61,6 @@ public class A_Exhaustive {
                 temp += 26;
             pt[w] = (byte) (temp + 'A');
         }
-        CryptoTools.bytesToFile(pt, "data/ACTIVITY1.pt");
+        CryptoTools.bytesToFile(pt, "data/ActivityA/ActivityCheck.pt");
     }
 }

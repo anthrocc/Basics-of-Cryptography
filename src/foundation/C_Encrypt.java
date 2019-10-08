@@ -6,9 +6,9 @@ public class C_Encrypt {
     public static void main(String[]args) throws Exception {
         int key = 19;
 
-        byte raw[] = CryptoTools.fileToBytes("data/MSG1.pt");  // Read plaintext into array of bytes
+        byte raw[] = CryptoTools.fileToBytes("data/ActivityA/MSG1.pt");  // Read plaintext into array of bytes
         byte pt[] = CryptoTools.clean(raw);  // Remove all characters that are not A-Z, capitalize all
-        CryptoTools.bytesToFile(pt, "data/MSG1.clean");  // Writes the cleaned array to file
+        CryptoTools.bytesToFile(pt, "data/ActivityA/MSG1.clean");  // Writes the cleaned array to file
         byte ct[] = new byte[pt.length];
 
         // Encrypt with Caesar Cipher
@@ -16,7 +16,7 @@ public class C_Encrypt {
             ct[i] = (byte) ((pt[i] - 'A' + key) % 26 + 'A');  // Cast as byte
         }
 
-        CryptoTools.bytesToFile(ct, "data/MSG1.ct");  // Writes the ciphertext array to file
+        CryptoTools.bytesToFile(ct, "data/ActivityA/MSG1.ct");  // Writes the ciphertext array to file
         System.out.println("MD5 hash of the ciphertext is: " + CryptoTools.getMD5(ct));  // Calculate and print MD5 hash of ct
         System.out.println("Index of Confidence for the plaintext is: " + CryptoTools.getIC(pt));  // Calculate and print IC of pt
         System.out.println("Index of Confidence for the ciphertext is: " + CryptoTools.getIC(ct));  // Calculate and print IC of pt
