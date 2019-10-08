@@ -1,0 +1,15 @@
+------Questions------
+A) What would you do in order to determine if the cipher is a transposition cipher or not?
+B) What would you do in order to determine if the cipher is a Caesar cipher or not?
+C) What would you do in order to determine if the cipher is a monoalphabetic cipher or not?
+D) What would you do in order to determine if the cipher is a polyalphabetic cipher or not?
+
+
+
+------Answers------
+A) Check the frequency vectors of the CipherText and if it is close to English (0.7), it is most likley transposition.
+B) Simply try all 25 possible shifts and if one of them gives a plaintext that is English, it is a Caesar cipher.
+C) Calculate the index of coincidence and if it is around 0.06, it is most likely monoalphabetic (after ruling out that
+it is not a transposition cipher).
+D) Calculate the index of coincidence and if it is lower than 0.06, it is most likely polyalphabetic (after ruling out
+that it is not a transposition cipher).

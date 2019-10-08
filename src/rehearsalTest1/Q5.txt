@@ -1,0 +1,17 @@
+------Question------
+Consider a cryptosystem (P, C, K, E, D) in which E is a block cipher of size N (i.e. it operates on N plaintext letters
+at a time to produce N ciphertext letters) and in which the key consists of M letters, where M < N. We don't know the
+cipher's algorithm (it may not be any of the ones we studied in this course) but we know that it is a group cipher
+(i.e. closed under composition). Prove that for any given plaintext block p and key k:
+	  ∃x ≤ 26M : E^x(k,p) = p
+where Ex denotes composition x times. In words, this means repeatedly encrypting p with the same key k will eventually
+lead back to p after at most 26M repetitions. Example with x=2: if encrypting p with k yields some ciphertext c then
+encrypting c with the same key k yields p. Leave the Result Box empty and write your proof in the Method Box.
+
+
+------Answer------
+Proof by contradiction:
+If we have a key K to get from P to R, then to get from R to S we use K again. But between P and S we have a second key
+R2. To get from S to T we use K again but there is now a third key R3 that gets us from T to P. No matter how many times
+we encrypt with K, the keyspace will expand by 1. Once we reach |x| = 4 (keyspace of 4) the new shortcut key goes to
+the second "node" not the original plaintext node and thus a contradiction is reached.
