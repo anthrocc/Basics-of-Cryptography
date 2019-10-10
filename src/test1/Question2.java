@@ -15,7 +15,7 @@ public class Question2 {
         byte[] desKey = "Geologic".getBytes(); // DES
         byte[] aesKey = CryptoTools.hexToBytes("6D79796F726B756E6976657273697479"); // AES
         byte[] iv = CryptoTools.hexToBytes("30396F6968677771637667686A6B3635");
-        byte[] ct = "4519D15E452E82E3F93ECFDCA2373791".getBytes();
+        byte[] ct = CryptoTools.hexToBytes("4519D15E452E82E3F93ECFDCA2373791");
 
         Key secret = new SecretKeySpec(aesKey, "AES");
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");

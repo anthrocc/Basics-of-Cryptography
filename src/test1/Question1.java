@@ -11,21 +11,7 @@ public class Question1 {
         int key1 = 49;
         char[] key2 = "MIRACULOUS".toCharArray();
 
-        //int[] frq = CryptoTools.getFrequencies(ct);
         int curMatch = 0, maxMatch = 0, curShift = 1, maxShift = 1;
-//        for (; curShift <= 20; curShift++) {
-//            for (int i = 0; i < ct.length - curShift; i++) {
-//                if (ct[i] == ct[i + curShift]) {
-//                    curMatch++;
-//                }
-//            }
-//            if (curMatch > maxMatch) {
-//                maxMatch = curMatch;
-//                maxShift = curShift;
-//            }
-//
-//            curMatch = 0;
-//        }
 
         while (curShift <= 20) {
             for (int i = 0; i < ct.length - curShift; i++) {
@@ -85,16 +71,16 @@ public class Question1 {
             pt[m] += 'A';
         }
 
-        byte temp = pt[key1];
-        byte[] finalPt = new byte[pt.length];
+        byte[] finalPT = new byte[pt.length];
 
-        for (int i = (key1 - 1); i >= 0; i--) {
-            finalPt[i + 1] = finalPt[i];
+        for (int i = 0; i < ct.length; i++)
+        {
+            int tmp = (pt[i] - 'A' - key1) % key1;
+            if (tmp < 0) tmp+= key1;
+            finalPT[i] = (byte) (tmp + 'A');
         }
-        finalPt[0] = temp;
 
-
-        CryptoTools.bytesToFile(finalPt, "data/Test1/question1.pt");
+        CryptoTools.bytesToFile(finalPT, "data/Test1/question1.pt");
         System.out.println("CipherText decoded and saved under data/Test1/question1.pt");
     }
 
