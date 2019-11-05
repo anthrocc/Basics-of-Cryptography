@@ -29,6 +29,6 @@ public class ActivityC1 {
         byte[] pt = cipher.doFinal(ct.toByteArray());
         CryptoTools.bytesToFile(pt, "data/ActivityC/ActivityC1PT.pt");
 
-        System.out.println("PT: " + new String(pt).trim());
+        System.out.println("PT with JCE: " + new String(pt).trim());
     }
 }
