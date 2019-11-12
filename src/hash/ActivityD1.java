@@ -1,7 +1,15 @@
 package hash;
 
+import util.CryptoTools;
+
+import javax.crypto.Cipher;
 import java.math.BigInteger;
+import java.security.KeyFactory;
 import java.security.MessageDigest;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.RSAPrivateKeySpec;
+import java.security.spec.RSAPublicKeySpec;
 
 /*
     Your RSA keys are (all expressed as big integers):
@@ -36,28 +44,16 @@ public class ActivityD1 {
 
         BigInteger pt = new BigInteger("Meet me at 5 pm tomorrow".getBytes());
 
-        MessageDigest digester = MessageDigest.getInstance("SHA-512");
+        MessageDigest md = MessageDigest.getInstance("SHA-512");
+        byte[] hash = md.digest(pt.toByteArray());
 
-        /* ------------ MANUALLY ------------ */
-        // Encrypt the plaintext with the private key manually (sign it)
-        BigInteger signature = pt.modPow(d, n);
+        BigInteger sig = new BigInteger(hash).modPow(d, n);
 
-        // Hash the signature with SHA2-512
-        byte[] hashedSig = digester.digest(signature.toByteArray());
+        System.out.println("Hashed Signature: " + CryptoTools.bytesToHex(sig.toByteArray()));
 
-
-        /* ------------ JCE ------------ */
-//        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-//        RSAPrivateKeySpec privSpec = new RSAPrivateKeySpec(n, d);
-//        PrivateKey privKey = keyFactory.generatePrivate(privSpec);
-//
-//        Cipher cipher = Cipher.getInstance("RSA/ECB/NoPadding");
-//        cipher.init(Cipher.ENCRYPT_MODE, privKey);
-//        byte[] signature = cipher.doFinal(pt.toByteArray());
-
-        // Hash the signature with SHA2-512
-//        byte[] hashedSig = digester.digest(signature);
-
-        System.out.println("Hashed Signature: " + new String(hashedSig));
+        BigInteger decrypt = sig.modPow(e, n);
+        System.out.println("Decrypted Signature: " + CryptoTools.bytesToHex(decrypt.toByteArray()));
+        System.out.println("Original Hash: " + CryptoTools.bytesToHex(hash));
+        System.out.println("Same: " + CryptoTools.bytesToHex(decrypt.toByteArray()).equals(CryptoTools.bytesToHex(hash)));
     }
 }

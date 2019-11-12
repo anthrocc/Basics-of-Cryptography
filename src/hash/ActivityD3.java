@@ -57,16 +57,19 @@ public class ActivityD3 {
         if (key.length < ob.blockSize) {
             byte[] longKey = new byte[ob.blockSize];
             for (int i = 0; i < longKey.length; i++) {
-                try {
+                if (i < key.length)
                     longKey[i] = key[i];
-                } catch (Exception e) {
+                else {
                     longKey[i] = 0;
                 }
             }
             key = longKey;
         }
 
-        System.out.println(ob.regularHashFunction(message, key));
+        byte[] regHMACHash = ob.regularHashFunction(message, key);
+        byte[] revHMACHash = ob.reverseHashFunction(message, key);
+        System.out.println("Regular Padding Hash: 0x " + CryptoTools.bytesToHex(regHMACHash));
+        System.out.println("Reverse Padding Hash: 0x " + CryptoTools.bytesToHex(revHMACHash));
 
     }
 
@@ -79,17 +82,21 @@ public class ActivityD3 {
         byte[] tempInnerHex = CryptoTools.hexToBytes("36");
 
         for (int j = 0; j < key.length; j++) {
-            opad[j] = (byte) (key[j] ^ tempOuterHex[j]);
-            ipad[j] = (byte) (key[j] ^ tempInnerHex[j]);
+            opad[j] = (byte) (key[j] ^ tempOuterHex[0]);
+            ipad[j] = (byte) (key[j] ^ tempInnerHex[0]);
         }
 
         byte[] hashAndInner = new byte[ipad.length + message.length];
 
+        // Counter variable for second half of array
+        int c = 0;
+
         for (int i = 0; i < hashAndInner.length; i++) {
-            try {
+            if (i < ipad.length)
                 hashAndInner[i] = ipad[i];
-            } catch (Exception e) {
-                hashAndInner[i] = message[i];
+            else {
+                hashAndInner[i] = message[c];
+                c++;
             }
         }
 
@@ -98,11 +105,64 @@ public class ActivityD3 {
 
         byte[] outerAndHash = new byte[opad.length + innerHash.length];
 
+        // Reset counter variable
+        c = 0;
+
         for (int i = 0; i < outerAndHash.length; i++) {
-            try {
+            if (i < opad.length)
                 outerAndHash[i] = opad[i];
-            } catch (Exception e) {
-                outerAndHash[i] = message[i];
+            else {
+                outerAndHash[i] = message[c];
+                c++;
+            }
+        }
+
+        byte[] finalHash = md.digest(outerAndHash);
+
+        return finalHash;
+    }
+
+    public byte[] reverseHashFunction(byte[] message, byte[] key) throws Exception {
+        byte[] opad = new byte[key.length];
+        byte[] ipad = new byte[key.length];
+        // o_key_pad ← key xor [0x5c * blockSize]   Outer padded key
+        byte[] tempOuterHex = CryptoTools.hexToBytes("36");
+        // i_key_pad ← key xor [0x36 * blockSize]   Inner padded key
+        byte[] tempInnerHex = CryptoTools.hexToBytes("5c");
+
+        for (int j = 0; j < key.length; j++) {
+            opad[j] = (byte) (key[j] ^ tempOuterHex[0]);
+            ipad[j] = (byte) (key[j] ^ tempInnerHex[0]);
+        }
+
+        byte[] hashAndInner = new byte[ipad.length + message.length];
+
+        // Counter variable for second half of array
+        int c = 0;
+
+        for (int i = 0; i < hashAndInner.length; i++) {
+            if (i < ipad.length)
+                hashAndInner[i] = ipad[i];
+            else {
+                hashAndInner[i] = message[c];
+                c++;
+            }
+        }
+
+        MessageDigest md = MessageDigest.getInstance(hashFunc);
+        byte[] innerHash = md.digest(hashAndInner);
+
+        byte[] outerAndHash = new byte[opad.length + innerHash.length];
+
+        // Reset counter variable
+        c = 0;
+
+        for (int i = 0; i < outerAndHash.length; i++) {
+            if (i < opad.length)
+                outerAndHash[i] = opad[i];
+            else {
+                outerAndHash[i] = message[c];
+                c++;
             }
         }
 
