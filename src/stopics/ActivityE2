@@ -1,0 +1,11 @@
+The SKD protocol of the previous question is not secure. Show that it is possible for any node N on the network to
+eavesdrop on and understand the conversation between A and B.
+Hint: capture the first exchange; modify it; and then replay it.
+
+ANSWER
+Malory does not block any messages at all; she simply takes copies of them. Hence the protocol continues as normal as
+if Malory wasn't there and A and B will talk and exchange lots of messages (encrypted with KS) without getting any
+malformed message. Malory eavesdrops on all these ciphertexts and she simply records them (takes copies of them) even
+though she cannot decrypt them at this stage. Once A and B syp talking and their session ends, she sends the replayed
+first message to the KDC (as you explained) and thus gets KS. She uses it to decrypt all the ciphertexts she recorded
+earlier.

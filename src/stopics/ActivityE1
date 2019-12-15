@@ -1,0 +1,28 @@
+Examine the following symmetric key distribution (SKD) protocol in which A generates a session key KS and shares it with B:
+
+  A -> KDC:   IDA || IDB || E(KA, KS)
+  KDC -> A:   IDB || T  where T = E(KB, IDA || KS)
+  A -> B:     T
+
+Now that A and B share KS, show how they can use it to:
+    a) authenticate each other.
+    b) exchange confidential messages.
+    c) ensure the content integrity of their communication.
+
+ANSWERS
+a) The protocol allows Alice and Bob to share a session key, yes. Alice sends a message to Bob (encrypted with that
+    session key) instructing him to sell 5 shares in her portfolio. He does. Then 10 minutes later, he receives another
+    message (also correctly encrypted) instructing him to sell 5 more shares. How does he know the second message came
+    from Alice? Yes, it is correctly encrypted but Eve could have simply re-played the earlier message. He cannot tell
+    if it is from Alice or a replay from Eve. Encryption is thus not enough. What they can do for example is for one of
+    them to generate a nonce and have the other return it incremented. Another measure would be to include a timestamp
+    with the message
+
+b) The key session created by Alice, that both Alice and Bob know, would allow them to send messages to each other
+    confidentially (using Ks)
+
+c) Eve will intercept and modify part of the exchanged ciphertext (perhaps by dropping some blocks or by replacing some
+    blocks with others intercepted in an earlier exchange). All these changes do not affect the encryption / decryption
+    and can go unnoticed. Encryption is thus not enough. What they can do is to hash the plaintext and send its hash
+    along with the message (both encrypted) so if Eve changed anything, the recipient will notice (after decrypting
+    everything) that the hash of the received message is different from the received hash.

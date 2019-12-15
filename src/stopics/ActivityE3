@@ -1,0 +1,14 @@
+3) To explore AKD, visit this course's website. Examine its X.509 certificate and find out:
+    a) The name of the CA.
+    b) The certificate expiry date.
+    c) The name of the subject.
+    d) The subject's e and n.
+    e) The algorithms that the CA uses to sign the certificate.
+
+ANSWERS
+a) Sectigo RSA Domain Validation Secure Server CA
+b) ‎September ‎13, ‎2021 6:59:59 PM
+c) *.eecs.yorku.ca
+d) e = 30 82 01 0a 02 82 01 01 00 c9 1a 1e 4c 51 88 ac 28 0b 18 a4 0d a0 2d 67 fb 21 fc aa ba ff 77 e6 a4 d4 a6 b5 06 63 4d da 89 1c e4 44 6e f2 0d ec 87 8b 85 c4 68 32 9c 03 90 cf 51 71 79 26 f7 ff 4e 57 bd 2c b6 aa ac bc 82 bc 7c 6a 11 6c 64 23 a7 d5 63 c1 60 a7 ab 05 22 e2 6c d7 cc eb 95 88 1d ab 6f 97 a4 a8 80 07 55 07 f6 fd 62 8d f5 39 38 41 56 3d ed 1b 63 7c 2c e2 09 51 da b6 fc 5a 65 8f 4e b0 19 4d 5e 09 84 b1 8b 2c 0a fc 51 4d ed 30 bd 32 77 36 f2 b6 c1 53 9c d6 14 cd 52 6e 9e 68 6b 0d 82 bd d6 53 5b 56 b6 9a c2 d2 3e 4e 92 56 f1 0b 59 e8 f4 81 ce 04 72 84 a9 f4 90 47 44 33 32 98 99 cc c4 2f 4b 6f e9 c3 0e 59 d4 be 1e 34 16 96 e3 d9 22 10 61 61 4a 26 84 57 29 a9 f0 29 85 30 c3 f2 5c dc 6b 0a 48 0d 08 2e fa 15 70 b3 e4 4a b7 be eb af 2b e3 24 7c b7 f3 e2 2a 72 94 bd 09 53 d9 7d 10 05 02 03 01 00 01
+   n = 05 00
+e) sha256RSA and sha256
